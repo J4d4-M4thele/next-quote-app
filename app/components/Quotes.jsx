@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import LoadingPage from "../loading";
+import AddQuote from "./AddQuote";
 
 async function getQuotes() {
   const res = await fetch("http://localhost:3000/api/quotes");
@@ -48,6 +49,7 @@ const Quotes = () => {
           Search
         </button>
       </form>
+      <AddQuote />
       {quotes.map((quote) => (
         <div key={quote.id}>
           <div className="card w-96 bg-base-100 shadow-xl">
