@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const AddQuote = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  
+
   return (
     <div>
       <button className="btn" onClick={() => setModalOpen(true)}>
@@ -22,6 +22,14 @@ const AddQuote = () => {
             ✕
           </button>
           <h3 className="font-bold text-lg">Add Quote</h3>
+          <input
+            type="text"
+            placeholder="Enter a new quote..."
+            className="input input-bordered w-full max-w-xs"
+          />
+          <button type="submit" className="btn btn-primary">
+            Add New Quote
+          </button>
         </form>
       </dialog>
     </div>
