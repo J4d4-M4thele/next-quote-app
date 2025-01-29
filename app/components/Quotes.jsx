@@ -1,4 +1,7 @@
+"use client";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import LoadingPage from "../loading";
 
 async function getQuotes() {
   const res = await fetch("http://localhost:3000/api/quotes");
@@ -7,7 +10,20 @@ async function getQuotes() {
 }
 
 const Quotes = async () => {
-  const quotes = await getQuotes();
+  const [quotes, setQuotes] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getQuotes()
+    .then((quotes) => {
+      setQuotes(quotes);
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) {
+    return <LoadingPage />
+  }
 
   return (
     <div>
