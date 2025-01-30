@@ -20,7 +20,7 @@ const Quotes = () => {
     const quotes = await res.json();
     setQuotes(quotes);
     setLoading(false);
-  }
+  };
 
   useEffect(() => {
     fetchQuotes();
@@ -39,6 +39,13 @@ const Quotes = () => {
     setLoading(false);
   };
 
+  const deleteQuote = async (id) => {
+    const res = await fetch(`/api/quotes/${id}`, {
+      method:'DELETE'
+    });
+    fetchQuotes();
+  }
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -53,7 +60,7 @@ const Quotes = () => {
           Search
         </button>
       </form>
-      <AddQuote refreshQuotes={fetchQuotes}/>
+      <AddQuote refreshQuotes={fetchQuotes} />
       {quotes.map((quote) => (
         <div key={quote.id}>
           <div className="card w-96 bg-base-100 shadow-xl">
@@ -61,7 +68,12 @@ const Quotes = () => {
               <p>{quote.quote}</p>
               <p>- {quote.by}</p>
               <div className="card-actions justify-end">
-                <button className="btn btn-error">Delete</button>
+                <button
+                  onClick={() => deleteQuote(quote.id)}
+                  className="btn btn-error"
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>
