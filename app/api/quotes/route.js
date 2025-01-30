@@ -15,5 +15,5 @@ export async function POST(req) {
     };
     quotes.push(newQuote);
 
-    return NextResponse("Quote added successfully")
+    return NextResponse.json("Quote added successfully");
 }
