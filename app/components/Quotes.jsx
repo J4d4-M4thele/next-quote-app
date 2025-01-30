@@ -15,11 +15,15 @@ const Quotes = () => {
   const [loading, setLoading] = useState(true);
   const [query, setQuery] = useState("");
 
+  const fetchQuotes = async () => {
+    const res = await fetch("/api/quotes");
+    const quotes = await res.json();
+    setQuotes(quotes);
+    setLoading(false);
+  }
+
   useEffect(() => {
-    getQuotes().then((quotes) => {
-      setQuotes(quotes);
-      setLoading(false);
-    });
+    fetchQuotes();
   }, []);
 
   if (loading) {
@@ -49,7 +53,7 @@ const Quotes = () => {
           Search
         </button>
       </form>
-      <AddQuote />
+      <AddQuote refreshQuotes={fetchQuotes}/>
       {quotes.map((quote) => (
         <div key={quote.id}>
           <div className="card w-96 bg-base-100 shadow-xl">

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 
-const AddQuote = () => {
+const AddQuote = ({refreshQuotes}) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [newQuote, setNewQuote] = useState("");
   const [newQuoteBy, setNewQuoteBy] = useState("");
@@ -22,6 +22,7 @@ const AddQuote = () => {
       setNewQuote("");
       setNewQuoteBy("");
       setModalOpen(false);
+      refreshQuotes();
     }
   };
 
