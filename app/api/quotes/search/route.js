@@ -1,13 +1,17 @@
 import { NextResponse } from "next/server";
-import quotes from "../data.json";
+import { prisma } from "../../../db";
 
 //filtering through quotes using keywords
 export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const query = searchParams.get('query');
 
-  const filteredQuotes = quotes.filter((quote) => {
-    return quote.quote.toLowerCase().includes(query.toLowerCase());
+  const filteredQuotes = await prisma.quote.findMany({
+    where: {
+      quote: {
+        contains: query
+      }
+    }
   });
 
   return NextResponse.json(filteredQuotes);
